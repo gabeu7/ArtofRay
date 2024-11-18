@@ -6,10 +6,31 @@ import axiosCookieJarSupport from 'axios-cookiejar-support';
 const jar = new CookieJar();
 
 // Create client with cookie support
+import { CookieJar } from 'tough-cookie';
+import { encrypt, decrypt } from './encryption';  // Add encryption
+
+const jar = new CookieJar(undefined, {
+  rejectPublicSuffixes: true,
+  allowSpecialUseDomain: false
+});
+
 const client = axios.create({
   withCredentials: true,
-  jar
+  jar,
+  headers: {
+    'X-CSRF-Token': getCsrfToken(),
+  },
+  // Add cookie security options
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict'
+  }
 });
+
+// Add token encryption
+const encryptToken = (token: string) => encrypt(token);
+const decryptToken = (token: string) => decrypt(token);
 
 axiosCookieJarSupport(client);
 

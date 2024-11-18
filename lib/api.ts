@@ -2,12 +2,22 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 // Create base API instance
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+	baseURL: process.env.API_URL,  // Use server-side env variable
+	timeout: 10000,
+	headers: {
+	  'Content-Type': 'application/json',
+	  'X-CSRF-Token': getCsrfToken(),  // Add CSRF protection
+	},
+	// Add request validation
+	validateStatus: (status) => status >= 200 && status < 300,
+  });
+  
+  // Add rate limiting
+  import rateLimit from 'express-rate-limit';
+  const apiLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100 // limit each IP to 100 requests per windowMs
+  });
 
 // Request interceptor
 api.interceptors.request.use(

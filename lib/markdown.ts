@@ -1,13 +1,22 @@
 import MarkdownIt from 'markdown-it';
 
+// Safer Version
 const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true
-});
-
+	html: false,  // Disable raw HTML
+	linkify: true,
+	typographer: true,
+	// Add security features
+	breaks: true,
+	xhtmlOut: true,
+	// Sanitize output
+  });
+  
+// Add sanitization
+import DOMPurify from 'isomorphic-dompurify';
+  
 export const parseMarkdown = (content: string): string => {
-  return md.render(content);
+	const rendered = md.render(content);
+	return DOMPurify.sanitize(rendered);
 };
 
 export const stripMarkdown = (content: string): string => {
