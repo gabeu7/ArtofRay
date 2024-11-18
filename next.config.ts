@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'your-external-source.com',
+        //hostname: 'your-external-source.com',
         pathname: '/images/**',
       },
     ],
