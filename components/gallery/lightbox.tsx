@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { VisuallyHidden } from "@/components/ui/visually-hidden";
+//import { VisuallyHidden } from "@/components/ui/visually-hidden";
 import type { ArtworkImage } from "@/types/gallery";
 
 interface LightboxProps {

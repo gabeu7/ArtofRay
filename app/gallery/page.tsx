@@ -1,10 +1,3 @@
-interface ArtPiece {
-	id: string;
-	title: string;
-	artist: string;
-	imageUrl: string;
-  }
-
 'use client';
 
 import { useState } from "react";

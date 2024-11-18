@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import type { ArtworkImage } from "@/types/gallery";
 
 interface ArtworkCardProps {
