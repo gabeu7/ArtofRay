@@ -25,8 +25,13 @@ export default function Contact() {
           </label>
           <Textarea id="message" required className="min-h-[150px]" />
         </div>
-        <Button type="submit">Send Message</Button>
+        
       </form>
     </div>
   )
 }
+
+/*
+    ## TODO: implement message/email handling  ##
+    <Button type="submit">Send Message</Button> 
+*/

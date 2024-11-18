@@ -35,10 +35,12 @@ export function ArtworkCard({ artwork, onImageClick }: ArtworkCardProps) {
           onLoadingComplete={() => setIsLoading(false)}
         />
       </div>
+      {/* Don't show title and other info on card in gallery view
       <CardContent className="p-4">
         <h3 className="text-lg font-semibold">{artwork.title}</h3>
         <p className="text-sm text-muted-foreground">{artwork.artist}</p>
-      </CardContent>
+      </CardContent> 
+      */}
     </Card>
   );
 }
