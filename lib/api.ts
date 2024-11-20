@@ -1,32 +1,34 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { getCsrfToken } from './utils';  // You can keep this import if you need any utility functions for CSRF, though it's not directly needed in axios setup.
 
 // Create base API instance
 const api: AxiosInstance = axios.create({
-	baseURL: process.env.API_URL,  // Use server-side env variable
-	timeout: 10000,
-	headers: {
-	  'Content-Type': 'application/json',
-	  'X-CSRF-Token': getCsrfToken(),  // Add CSRF protection
-	},
-	// Add request validation
-	validateStatus: (status) => status >= 200 && status < 300,
-  });
-  
-  // Add rate limiting
-  import rateLimit from 'express-rate-limit';
-  const apiLimiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 100 // limit each IP to 100 requests per windowMs
-  });
+  baseURL: process.env.API_URL,  // Use server-side env variable
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  // No need to set CSRF token here directly
+  validateStatus: (status) => status >= 200 && status < 300,
+});
 
-// Request interceptor
+// Request interceptor for attaching CSRF token to every request
 api.interceptors.request.use(
-  (config) => {
-    // Add auth token if exists
+  async (config) => {
+    // Fetch CSRF token from cookies or from the server-side CSRF token API endpoint
+    const csrfToken = await getCsrfToken(); // This function can be used to fetch the token from cookies or other storage
+
+    // Add CSRF token to request headers
+    if (csrfToken) {
+      config.headers['X-CSRF-Token'] = csrfToken;
+    }
+
+    // Add auth token if exists (this is useful for authenticated requests)
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -49,12 +51,12 @@ export const apiClient = {
   get: <T>(url: string, config?: AxiosRequestConfig) => 
     api.get<T>(url, config).then(response => response.data),
     
-  post: <T>(url: string, data?: any, config?: AxiosRequestConfig) => 
+  post: <T, D>(url: string, data?: D, config?: AxiosRequestConfig) => 
     api.post<T>(url, data, config).then(response => response.data),
     
-  put: <T>(url: string, data?: any, config?: AxiosRequestConfig) => 
+  put: <T, D>(url: string, data?: D, config?: AxiosRequestConfig) => 
     api.put<T>(url, data, config).then(response => response.data),
     
-  delete: <T>(url: string, config?: AxiosRequestConfig) => 
+  delete: <T, D>(url: string, config?: AxiosRequestConfig) => 
     api.delete<T>(url, config).then(response => response.data)
 };

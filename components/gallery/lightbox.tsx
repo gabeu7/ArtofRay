@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -23,15 +23,15 @@ export function Lightbox({ images, currentImage, onClose }: LightboxProps) {
     }
   }, [currentImage, images]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setIsLoading(true);
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+  }, [images.length]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setIsLoading(true);
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
+  }, [images.length]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -39,10 +39,9 @@ export function Lightbox({ images, currentImage, onClose }: LightboxProps) {
       if (e.key === "ArrowRight") handleNext();
       if (e.key === "Escape") onClose();
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  }, [onClose, handleNext, handlePrevious]);
 
   if (!currentImage) return null;
 
@@ -102,15 +101,15 @@ export function Lightbox({ images, currentImage, onClose }: LightboxProps) {
               alt={currentArtwork.alt}
               fill
               className="object-contain"
-              onLoadingComplete={() => setIsLoading(false)}
+              onLoad={() => setIsLoading(false)}
               priority
             />
 
             {/* Image info */}
-            <div className="absolute bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm p-4">
-              <h3 className="text-xl font-semibold">{currentArtwork.title}</h3>
-              <p className="text-sm text-muted-foreground">{currentArtwork.artist}</p>
-              <p className="mt-2 text-sm">{currentArtwork.description}</p>
+            <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-4">
+              <h3 className="text-xl font-semibold text-white">{currentArtwork.title}</h3>
+              <p className="text-sm text-muted-foreground text-white">{currentArtwork.artist}</p>
+              <p className="mt-2 text-sm text-white">{currentArtwork.description}</p>
             </div>
           </div>
         </div>

@@ -32,7 +32,7 @@ export function ArtworkCard({ artwork, onImageClick }: ArtworkCardProps) {
             group-hover:scale-105
             ${isLoading ? 'opacity-0' : 'opacity-100'}
           `}
-          onLoadingComplete={() => setIsLoading(false)}
+          onLoad={() => setIsLoading(false)}
         />
       </div>
       {/* Don't show title and other info on card in gallery view
