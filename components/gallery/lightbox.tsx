@@ -58,8 +58,8 @@ export function Lightbox({ images, currentImage, onClose }: LightboxProps) {
           {/* Close button */}
           <Button
             variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 z-50"
+            size="default"
+            className="absolute top-8 right-8 z-50"
             onClick={onClose}
             aria-label="Close dialog"
           >

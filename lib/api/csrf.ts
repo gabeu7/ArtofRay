@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { serialize } from 'cookie';
 import { randomBytes } from 'crypto'; // Using crypto for secure token generation
 
-// Secret key to sign the CSRF token (you should use an environment variable for this in production)
-const SECRET_KEY = process.env.CSRF_SECRET_KEY || 'your-secure-random-key';
+// Secret key to sign the CSRF token
+const SECRET_KEY = process.env.CSRF_SECRET_KEY;
 
 // Function to generate CSRF token
 const generateCsrfToken = (): string => {
