@@ -1,0 +1,117 @@
+[4mNPM[24m(1)                                                                                                                                                                                                                           [4mNPM[24m(1)
+
+[1mNAME[0m
+       [1mnpm [22m- javascript package manager
+
+   [1mSynopsis[0m
+         npm
+
+       Note: This command is unaware of workspaces.
+
+   [1mVersion[0m
+       10.9.0
+
+   [1mDescription[0m
+       npm is the package manager for the Node JavaScript platform. It puts modules in place so that node can find them, and manages dependency conflicts intelligently.
+
+       It is extremely configurable to support a variety of use cases. Most commonly, you use it to publish, discover, install, and develop node programs.
+
+       Run [1mnpm help [22mto get a list of available commands.
+
+   [1mImportant[0m
+       npm comes preconfigured to use npm's public registry at https://registry.npmjs.org by default. Use of the npm public registry is subject to terms of use available at https://docs.npmjs.com/policies/terms.
+
+       You can configure npm to use any compatible registry you like, and even run your own registry. Use of someone else's registry is governed by their terms of use.
+
+   [1mIntroduction[0m
+       You probably got npm because you want to install stuff.
+
+       The very first thing you will most likely want to run in any node program is [1mnpm install [22mto install its dependencies.
+
+       You can also run [1mnpm install blerg [22mto install the latest version of "blerg". Check out npm help install for more info. It can do a lot of stuff.
+
+       Use the [1mnpm search [22mcommand to show everything that's available in the public registry. Use [1mnpm ls [22mto show everything you've installed.
+
+   [1mDependencies[0m
+       If a package lists a dependency using a git URL, npm will install that dependency using the [1mgit [4m[22m⟨https://github.com/git-guides/install-git⟩[24m command and will generate an error if it is not installed.
+
+       If  one  of  the  packages  npm  tries  to  install  is  a  native  node  module  and  requires  compiling  of  C++  Code, npm will use [1mnode-gyp [4m[22m⟨https://github.com/nodejs/node-gyp⟩[24m for that task. For a Unix system, [1mnode-gyp[0m
+       [4m⟨https://github.com/nodejs/node-gyp⟩[24m  needs  Python,  make  and  a  buildchain  like  GCC.  On  Windows,  Python  and  Microsoft  Visual  Studio  C++  are  needed.  For  more  information  visit   [1mthe   node-gyp   repository[0m
+       [4m⟨https://github.com/nodejs/node-gyp⟩[24m and the [1mnode-gyp Wiki [4m[22m⟨https://github.com/nodejs/node-gyp/wiki⟩[24m.
+
+   [1mDirectories[0m
+       See npm help folders to learn about where npm puts stuff.
+
+       In particular, npm has two modes of operation:
+
+       •   local mode: npm installs packages into the current project directory, which defaults to the current working directory. Packages install to [1m./node_modules[22m, and bins to [1m./node_modules/.bin[22m.
+
+       •   global mode: npm installs packages into the install prefix at [1m$npm_config_prefix/lib/node_modules [22mand bins to [1m$npm_config_prefix/bin[22m.
+
+       Local mode is the default. Use [1m-g [22mor [1m--global [22mon any command to run in global mode instead.
+
+   [1mDeveloper Usage[0m
+       If you're using npm to develop and publish your code, check out the following help topics:
+
+       •   json: Make a package.json file. See [1mpackage.json [4m[22m⟨/configuring-npm/package-json⟩[24m.
+
+       •   link: Links your current working code into Node's path, so that you don't have to reinstall every time you make a change. Use npm help link to do this.
+
+       •   install: It's a good idea to install things if you don't need the symbolic link. Especially, installing other peoples code from the registry is done via npm help install
+
+       •   adduser: Create an account or log in. When you do this, npm will store credentials in the user config file.
+
+       •   publish: Use the npm help publish command to upload your code to the registry.
+
+   [1mConfiguration[0m
+       npm is extremely configurable. It reads its configuration options from 5 places.
+
+       •   Command  line  switches:  Set  a config with [1m--key val[22m. All keys take a value, even if they are booleans (the config parser doesn't know what the options are at the time of parsing). If you do not provide a value ([1m--key[22m)
+           then the option is set to boolean [1mtrue[22m.
+
+       •   Environment Variables: Set any config by prefixing the name in an environment variable with [1mnpm_config_[22m. For example, [1mexport npm_config_key=val[22m.
+
+       •   User Configs: The file at [1m$HOME/.npmrc [22mis an ini-formatted list of configs. If present, it is parsed. If the [1muserconfig [22moption is set in the cli or env, that file will be used instead.
+
+       •   Global Configs: The file found at [1m./etc/npmrc [22m(relative to the global prefix will be parsed if it is found. See npm help prefix for more info on the global prefix. If the [1mglobalconfig [22moption is set in the  cli,  env,  or
+           user config, then that file is parsed instead.
+
+       •   Defaults: npm's default configuration options are defined in [1mlib/utils/config/definitions.js[22m. These must not be changed.
+
+       See npm help config for much much more information.
+
+   [1mContributions[0m
+       Patches welcome!
+
+       If you would like to help, but don't know what to work on, read the [1mcontributing guidelines [4m[22m⟨https://github.com/npm/cli/blob/latest/CONTRIBUTING.md⟩[24m and check the issues list.
+
+   [1mBugs[0m
+       When you find issues, please report them: [4m⟨https://github.com/npm/cli/issues⟩[0m
+
+       Please be sure to follow the template and bug reporting guidelines.
+
+   [1mFeature Requests[0m
+       Discuss new feature ideas on our discussion forum:
+
+       •   [4m⟨https://github.com/orgs/community/discussions/categories/npm⟩[0m
+
+       Or suggest formal RFC proposals:
+
+       •   [4m⟨https://github.com/npm/rfcs⟩[0m
+
+   [1mSee Also[0m
+       •   npm help help
+
+       •   [1mpackage.json [4m[22m⟨/configuring-npm/package-json⟩[0m
+
+       •   npm help npmrc
+
+       •   npm help config
+
+       •   npm help install
+
+       •   npm help prefix
+
+       •   npm help publish
+
+NPM@10.9.0                                                                                                    October 2024                                                                                                       [4mNPM[24m(1)
